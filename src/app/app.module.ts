@@ -5,8 +5,8 @@ import { HttpModule } from '@angular/http';
 import { routing, appRoutingProviders } from './app.routing';
 
 import { AppComponent } from './app.component';
-import { HijoComponent } from './components/hijo.component';
-import { InputNumberComponent } from './components/input-number.component';
+import { HijoComponent } from './components/pruebas/hijo.component';
+import { InputNumberComponent } from './components/pruebas/input-number.component';
 import { UserEditComponent } from './components/user/user-edit.component';
 import { ArtistListComponent } from './components/artist/artist-list.component';
 import { HomeComponent } from './components/home/home.component';

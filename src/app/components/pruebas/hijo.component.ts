@@ -2,7 +2,7 @@ import { Component, Input, OnInit} from '@angular/core';
 
 @Component({
     selector: 'componente-hijo',
-    templateUrl: '../views/hijo.component.html'
+    templateUrl: 'hijo.component.html'
   })
   export class HijoComponent implements OnInit{
 

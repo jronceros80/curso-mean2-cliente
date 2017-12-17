@@ -2,7 +2,7 @@ import { Component, Input, OnInit} from '@angular/core';
 
 @Component({
     selector: 'input-number',
-    templateUrl: '../views/input-number.component.html'
+    templateUrl: 'input-number.component.html'
   })
   export class InputNumberComponent implements OnInit{
 
@@ -20,4 +20,4 @@ import { Component, Input, OnInit} from '@angular/core';
       prueba(){
         alert(this.valueNumber); 
       }
-  }
+  } 
