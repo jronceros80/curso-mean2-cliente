@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Artist } from '../models/artist';
-import { UserService } from '../services/user.service';
-import { ArtistService } from '../services/artist.service';
-import { UploadService } from '../services/upload.service';
-import { GLOBAL } from '../services/global';
+import { Artist } from '../../models/artist';
+import { UserService } from '../../services/user.service';
+import { ArtistService } from '../../services/artist.service';
+import { UploadService } from '../../services/upload.service';
+import { GLOBAL } from '../../services/global';
 
 @Component({
     selector: 'artist-edit',
-    templateUrl: '../views/artist-add.html',
+    templateUrl: 'artist-add.component.html',
     providers: [UserService, ArtistService, UploadService]
   })
   export class ArtistEditComponent implements OnInit{
