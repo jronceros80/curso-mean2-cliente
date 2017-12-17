@@ -13,7 +13,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ArtistAddComponent } from './components/artist/artist-add.component';
 import { ArtistEditComponent } from './components/artist/artist-edit.component';
 import { ArtistDetailComponent } from './components/artist/artist-detail.component';
-
+import { AlbumAddComponent } from './components/album/album-add.component';
+import { AlbumEditComponent } from './components/album/album-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import { ArtistDetailComponent } from './components/artist/artist-detail.compone
     ArtistEditComponent,
     ArtistDetailComponent,
     HijoComponent,
-    InputNumberComponent
+    InputNumberComponent,
+    AlbumAddComponent,
+    AlbumEditComponent
   ],
   imports: [
     BrowserModule,
