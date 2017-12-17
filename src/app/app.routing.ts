@@ -2,12 +2,12 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 //Importar componentes
-import { HomeComponent } from './components/home.component';
-import { UserEditComponent } from './components/user-edit.component';
-import { ArtistListComponent } from './components/artist-list.component';
-import { ArtistAddComponent } from './components/artist-add.component';
-import { ArtistEditComponent } from './components/artist-edit.component';
-import { ArtistDetailComponent } from './components/artist-detail.component';
+import { HomeComponent } from './components/home/home.component';
+import { UserEditComponent } from './components/user/user-edit.component';
+import { ArtistListComponent } from './components/artist/artist-list.component';
+import { ArtistAddComponent } from './components/artist/artist-add.component';
+import { ArtistEditComponent } from './components/artist/artist-edit.component';
+import { ArtistDetailComponent } from './components/artist/artist-detail.component';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},

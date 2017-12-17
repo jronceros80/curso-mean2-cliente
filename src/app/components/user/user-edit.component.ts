@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {User } from '../models/user';
-import { UserService } from '../services/user.service';
-import { GLOBAL } from '../services/global';
+import {User } from '../../models/user';
+import { UserService } from '../../services/user.service';
+import { UploadService } from '../../services/upload.service';
+import { GLOBAL } from '../../services/global';
 
 
 @Component({
   selector: 'user-edit',
-  templateUrl: '../views/user-edit.html',
-  providers: [UserService]
+  templateUrl: 'user-edit.component.html',
+  providers: [UserService, UploadService]
 })
 export class UserEditComponent implements OnInit{
 
@@ -19,7 +20,8 @@ export class UserEditComponent implements OnInit{
     public url: string;
     
     constructor(
-        private _userService: UserService
+        private _userService: UserService,
+        private _uploadService: UploadService
       ){
         this.titulo='Actualiza tus datos';
         this.identity = this._userService.getIdentity();
@@ -46,20 +48,24 @@ export class UserEditComponent implements OnInit{
                     if(!this.fileToUpload){
                         //Redireccion
                     }else{
-                        this.makeFileRequest(this.url + 'upload-image-user/' +  this.user._id, [], this.fileToUpload)
-                            .then((result: any) => {
+                        //Subida de la imagen
+                        this._uploadService.makeFileRequest(this.url+ 'upload-image-user/'+ this.user._id, [], this.fileToUpload, this.token, 'image')
+                        .then(
+                            (result: any) => {
                                 this.user.image = result.image;
                                 localStorage.setItem('identity', JSON.stringify(this.user));
                                 
                                 let image_file= this.url + 'get-image-file/' + this.user.image;
                                 document.getElementById('imageUpload').setAttribute('src', image_file);
-                            });
+                            },
+                            (error) =>{
+                                console.log(error);
+                            }
+                        );
                     }
 
                     //Mostramos un mensaje satisfactorio
                     this.alertMessage = 'Datos actualizados correctamente';
-
-                    
                 }
             },
             error =>{
@@ -72,35 +78,7 @@ export class UserEditComponent implements OnInit{
     }
 
     public fileToUpload: Array<File>;
-    
     fileChangeEvent(fileInput: any){
         this.fileToUpload = <Array<File>>fileInput.target.files;
-    }
-
-    makeFileRequest(url: string, params: Array<string>, files: Array<File>){
-        var token = this.token;
-
-        return new Promise(function(resolve, reject){
-            var formData: any = new FormData();
-            var xhr = new XMLHttpRequest();
-
-            for(var i=0; i<files.length; i++){
-                formData.append('image', files[i], files[i].name)
-            }
-
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState == 4){
-                    if(xhr.status == 200){
-                        resolve(JSON.parse(xhr.response));
-                    }else{
-                        reject(xhr.response);
-                    }
-                }
-            }
-
-            xhr.open('POST', url, true);
-            xhr.setRequestHeader('Authorization', token);
-            xhr.send(formData);
-        });
     }
 }

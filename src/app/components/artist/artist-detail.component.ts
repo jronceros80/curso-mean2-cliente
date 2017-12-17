@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Artist } from '../models/artist';
-import { UserService } from '../services/user.service';
-import { ArtistService } from '../services/artist.service';
-import { GLOBAL } from '../services/global';
+import { Artist } from '../../models/artist';
+import { UserService } from '../../services/user.service';
+import { ArtistService } from '../../services/artist.service';
+import { GLOBAL } from '../../services/global';
 
 @Component({
     selector: 'artist-detail',
-    templateUrl: '../views/artist-detail.html',
+    templateUrl: 'artist-detail.component.html',
     providers: [UserService, ArtistService]
   })
   export class ArtistDetailComponent implements OnInit{
