@@ -56,4 +56,5 @@ import { GLOBAL } from '../../services/global';
             }
         );
       }
+    
   }

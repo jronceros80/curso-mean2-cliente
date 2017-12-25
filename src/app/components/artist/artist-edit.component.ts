@@ -81,16 +81,20 @@ import { GLOBAL } from '../../services/global';
                         }else{
                             this.alertMessage = 'El artista se actualizado correctamente';
 
-                            //Subida de la imagen
-                            this._uploadService.makeFileRequest(this.url+ 'upload-image-artist/'+ id, [], this.fileToUpload, this.token, 'image')
-                                .then(
-                                    (result: any) => {
-                                        this._router.navigate(['/artistas', 1])
-                                    },
-                                    (error) =>{
-                                        console.log(error);
-                                    }
-                                );
+                            if(!this.fileToUpload){
+                                this._router.navigate(['/artista', response.artist._id]);
+                            }else{
+                                    //Subida de la imagen
+                                    this._uploadService.makeFileRequest(this.url+ 'upload-image-artist/'+ id, [], this.fileToUpload, this.token, 'image')
+                                    .then(
+                                        (result: any) => {
+                                            this._router.navigate(['/artista', response.artist._id]);
+                                        },
+                                        (error) =>{
+                                            console.log(error);
+                                        }
+                                    );
+                                }
                             }
                 },
                 error =>{

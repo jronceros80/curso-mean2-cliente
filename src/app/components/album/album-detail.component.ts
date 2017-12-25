@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Artist } from '../../models/artist';
+import { Album } from '../../models/album';
 import { UserService } from '../../services/user.service';
-import { ArtistService } from '../../services/artist.service';
 import { AlbumService } from '../../services/album.service';
 import { GLOBAL } from '../../services/global';
 
 @Component({
-    selector: 'artist-detail',
-    templateUrl: 'artist-detail.component.html',
-    providers: [UserService, ArtistService, AlbumService]
+    selector: 'album-detail',
+    templateUrl: 'album-detail.component.html',
+    providers: [UserService, AlbumService]
   })
-  export class ArtistDetailComponent implements OnInit{
-    public artist: Artist;
+  export class AlbumDetailComponent implements OnInit{
+    public album: Album;
     public identity;
     public token;
     public url: string;
@@ -24,35 +23,34 @@ import { GLOBAL } from '../../services/global';
         private _route: ActivatedRoute,
         private _router: Router,
         private _userService: UserService,
-        private _artistService: ArtistService,
         private _albumService: AlbumService
       ){
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();  
         this.url = GLOBAL.url;
-        this.artist = new Artist('','','');
+        this.album = new Album('','',2017,'','');
       }
 
     ngOnInit(){
-        console.log('artist-add cargado');
+        console.log('album-detail cargado');
 
-        //Lamar almetodo del api para sacar un artista en base a su getArtist
-        this.getArtist();
+        //Obtenemos el album de la bbdd
+        this.getAlbum();
       }
 
-    getArtist(){
+    getAlbum(){
         this._route.params.forEach((params: Params) =>{
             let id = params['id'];
 
-            this._artistService.getArtist(this.token, id).subscribe(
+            this._albumService.getAlbum(this.token, id).subscribe(
                 response =>{
-                    if(!response.artist){
+                    if(!response.album){
                         this._router.navigate(['/']);
                     }else{
-                        this.artist = response.artist;
+                        this.album = response.album;
 
                         //obtener los albunes del artista
-                        this._albumService.getAlbums(this.token, response.artist._id).subscribe(
+                        /*this._albumService.getAlbums(this.token, response.artist._id).subscribe(
                             response =>{
                                 if(!response.albums){
                                     this.alertMessage='Este artista no tiene albunes';
@@ -66,7 +64,7 @@ import { GLOBAL } from '../../services/global';
                                     var body = JSON.parse(error._body);
                                 }
                             }
-                        ); 
+                        );*/ 
                     }
             },
             error =>{
@@ -77,31 +75,5 @@ import { GLOBAL } from '../../services/global';
             });
         });
     }
-
-    public confirmado;
-    onDeleteConfirmAlbum(id){
-      this.confirmado = id;
-    }
-    
-    onCancelAlbum(id){
-      this.confirmado = null;
-    }
-
-    onDeleteAlbum(id){
-      this._albumService.deleteAlbum(this.token, id).subscribe(
-        response =>{
-            if(!response.album){
-                alert("Error en el servidor");
-            }else{
-                this.getArtist();
-            }
-        },
-        error =>{
-            var errorMessage = <any>error;
-            if(errorMessage != null){
-                var body = JSON.parse(error._body);
-                console.log(error);
-            }
-        });
-    }
+  
   }

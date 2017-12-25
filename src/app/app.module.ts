@@ -15,6 +15,7 @@ import { ArtistEditComponent } from './components/artist/artist-edit.component';
 import { ArtistDetailComponent } from './components/artist/artist-detail.component';
 import { AlbumAddComponent } from './components/album/album-add.component';
 import { AlbumEditComponent } from './components/album/album-edit.component';
+import { AlbumDetailComponent } from './components/album/album-detail.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AlbumEditComponent } from './components/album/album-edit.component';
     HijoComponent,
     InputNumberComponent,
     AlbumAddComponent,
-    AlbumEditComponent
+    AlbumEditComponent,
+    AlbumDetailComponent
   ],
   imports: [
     BrowserModule,
