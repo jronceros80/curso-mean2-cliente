@@ -47,14 +47,14 @@ import { GLOBAL } from '../../services/global';
            let artist_id = params['artist'];
            this.album.artist=artist_id;  
            
-           this._albumService.addArtist(this.token, this.album).subscribe(
+           this._albumService.addAlbum(this.token, this.album).subscribe(
                 response =>{
                         if(!response.album){
                             this.alertMessage = 'error en el servidor';
                         }else{
                             this.alertMessage = '!El album se ha creado correctamente';
                             this.album = response.album;
-                            //this._router.navigate(['/editar-artista', response.artist._id]);
+                            this._router.navigate(['/editar-album', response.album._id]);
                         }
                 },
                 error =>{
