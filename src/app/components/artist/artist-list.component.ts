@@ -59,6 +59,7 @@ import { ArtistService } from '../../services/artist.service';
                         this._router.navigate(['/']);
                     }else{
                         this.artists = response.artists;
+                        console.log(this.artists);
                     }
                 },
                 error =>{

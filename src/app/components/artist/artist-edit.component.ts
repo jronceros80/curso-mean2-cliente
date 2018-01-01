@@ -37,7 +37,7 @@ import { GLOBAL } from '../../services/global';
       }
 
     ngOnInit(){
-        console.log('artist-add cargado');
+        console.log('artist-edit cargado');
 
         //Lamar almetodo del api para sacar un artista en base a su getArtist
         this.getArtist();
@@ -53,6 +53,7 @@ import { GLOBAL } from '../../services/global';
                         this._router.navigate(['/']);
                     }else{
                         this.artist = response.artist;
+                        console.log(this.artist)
                     }
             },
             error =>{

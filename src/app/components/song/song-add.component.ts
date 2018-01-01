@@ -3,12 +3,13 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Song } from '../../models/song';
 import { UserService } from '../../services/user.service';
+import { SongService } from '../../services/song.service';
 import { GLOBAL } from '../../services/global';
 
 @Component({
     selector: 'song-add',
     templateUrl: 'song-add.component.html',
-    providers: [UserService]
+    providers: [UserService,SongService]
   })
   export class SongAddComponent implements OnInit{
 
@@ -22,7 +23,8 @@ import { GLOBAL } from '../../services/global';
     constructor(
         private _route: ActivatedRoute,
         private _router: Router,
-        private _userService: UserService
+        private _userService: UserService,
+        private _songService: SongService
       ){
         this.titulo='Añadir canción';
         this.identity = this._userService.getIdentity();
@@ -41,14 +43,14 @@ import { GLOBAL } from '../../services/global';
            this.song.album=album_id;  
            console.log(this.song);
            
-           /*this._albumService.addAlbum(this.token, this.album).subscribe(
+           this._songService.addSong(this.token, this.song).subscribe(
                 response =>{
-                        if(!response.album){
+                        if(!response.song){
                             this.alertMessage = 'error en el servidor';
                         }else{
-                            this.alertMessage = '!El album se ha creado correctamente';
-                            this.album = response.album;
-                            this._router.navigate(['/editar-album', response.album._id]);
+                            this.alertMessage = '!La cancion se ha creado correctamente';
+                            this.song = response.song;
+                            this._router.navigate(['/editar-tema', response.song._id]);
                         }
                 },
                 error =>{
@@ -58,7 +60,7 @@ import { GLOBAL } from '../../services/global';
                         this.alertMessage = body.message;
                     }
                 }
-            );*/
+            );
         });
     }
   }

@@ -16,8 +16,8 @@
         </p>
         <p>
             <label>Titulo</label>
-            <input type="text" name="title" #title="ngModel" [(ngModel)]="song.title" class="form-control" required/>
-            <span *ngIf="!title.valid && title.touched">
+            <input type="text" name="name" #name="ngModel" [(ngModel)]="song.name" class="form-control" required/>
+            <span *ngIf="!name.valid && name.touched">
                 El Titulo es obligatorio
             </span>
         </p>
@@ -30,9 +30,10 @@
             </span>
         </p>
         <div *ngIf="is_edit">
-            <div class="song_image_for_edit" *ngIf="song.image && song.image != 'null'">
-                <source src="{{ url + 'get-file-song/' + song.file }}" type="audio/mpeg" />
-                    El navegador web no soporta la reproduccion de audio
+            <div class="song_image_for_edit" *ngIf="song.file && song.file != 'null'">
+                <audio controls>
+                    <source src="{{ url + 'get-file-song/' + song.file }}" type="audio/mp3" />
+                </audio>
             </div>
         
             <label>Sube el fichero de audio:</label>

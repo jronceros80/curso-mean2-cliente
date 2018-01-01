@@ -17,6 +17,9 @@ import { AlbumAddComponent } from './components/album/album-add.component';
 import { AlbumEditComponent } from './components/album/album-edit.component';
 import { AlbumDetailComponent } from './components/album/album-detail.component';
 import { SongAddComponent } from './components/song/song-add.component';
+import { SongEditComponent } from './components/song/song-edit.component';
+import { PlayerComponent } from './components/player/player.component';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +35,9 @@ import { SongAddComponent } from './components/song/song-add.component';
     AlbumAddComponent,
     AlbumEditComponent,
     AlbumDetailComponent,
-    SongAddComponent
+    SongAddComponent,
+    SongEditComponent,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +46,7 @@ import { SongAddComponent } from './components/song/song-add.component';
     routing
   ],
   providers: [appRoutingProviders],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: []
 })
 export class AppModule { }
