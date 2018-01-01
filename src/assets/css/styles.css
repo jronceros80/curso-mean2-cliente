@@ -157,7 +157,6 @@ html, body{
 /*ALBUMS*/
 .album-list{
     min-height: auto;
-    margin-bottom: 715px;
 }
 
 .album-item .album-image{
