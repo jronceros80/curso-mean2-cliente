@@ -1,62 +1,60 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
 import { GLOBAL } from './global';
 
 @Injectable()
-export class UserService{
+export class UserService {
     public url: string;
     public identity;
     public token;
 
-    constructor(private _http: Http){
+    constructor(private _http: Http) {
         this.url = GLOBAL.url;
     }
 
-    register(user_to_register){
-       let params = JSON.stringify(user_to_register);   //Convertimos en string de json el objeto
+    register(user_to_register) {
+       let params = JSON.stringify(user_to_register);   // Convertimos en string de json el objeto
        let headers = new Headers({'Content-Type':'application/json'});
 
        return this._http.post(this.url + 'register', params, {headers: headers})
                             .map(res => res.json());
     }
 
-    signut(user_to_login, gethash=null){
-        
+    signut(user_to_login, gethash = null) {
         if(gethash != null){
             user_to_login.gethash = gethash;
         }
-        let params = JSON.stringify(user_to_login); //Convertimos en string de json el objeto
+        let params = JSON.stringify(user_to_login); // Convertimos en string de json el objeto
         let headers = new Headers({'Content-Type':'application/json'});
 
         return this._http.post(this.url + 'login', params, {headers: headers})
                              .map(res => res.json());
      }
 
-     getIdentity(){
+     getIdentity() {
          let identity = JSON.parse(localStorage.getItem('identity'));
 
-         if(identity != 'undefined'){
+         if(identity != 'undefined') {
             this.identity = identity;
-         }else{
+         }else {
             this.identity = null;
          }
          return this.identity;
      }
 
-     getToken(){
+     getToken() {
         let token = localStorage.getItem('token');
 
-        if(token != 'undefined'){
+        if(token != 'undefined') {
            this.token = token;
-        }else{
+        }else {
             this.token = null;
         }
         return this.token;
     }
 
-    updateUser(user_to_update){
+    updateUser(user_to_update) {
         let params = JSON.stringify(user_to_update);
         let headers = new Headers({
             'Content-Type':'application/json',
@@ -67,7 +65,7 @@ export class UserService{
                              .map(res => res.json());
     }
 
-    getKeepers(){
+    getKeepers() {
         return this._http.get(this.url + 'keepers').map(res => res.json());
     }
 }

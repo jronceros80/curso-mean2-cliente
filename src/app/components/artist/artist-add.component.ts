@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Artist } from '../../models/artist';
 import { UserService } from '../../services/user.service';
@@ -11,7 +11,7 @@ import { GLOBAL } from '../../services/global';
     templateUrl: 'artist-add.component.html',
     providers: [UserService, ArtistService]
   })
-  export class ArtistAddComponent implements OnInit{
+  export class ArtistAddComponent implements OnInit {
 
     public titulo: string;
     public artist: Artist;
@@ -21,7 +21,6 @@ import { GLOBAL } from '../../services/global';
     public alertMessage: string;
 
     constructor(
-        private _route: ActivatedRoute,
         private _router: Router,
         private _userService: UserService,
         private _artistService: ArtistService
@@ -30,7 +29,7 @@ import { GLOBAL } from '../../services/global';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();  
         this.url = GLOBAL.url;
-        this.artist = new Artist('','','');
+        this.artist = new Artist('', '', '');
       }
 
     ngOnInit(){

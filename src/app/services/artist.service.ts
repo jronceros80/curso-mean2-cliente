@@ -1,71 +1,65 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
-import 'rxjs/add/operator/map';
+import {HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { GLOBAL } from './global';
 import { Artist } from '../models/artist';
-import { RequestOptions } from '@angular/http';
 
 @Injectable()
-export class ArtistService{
+export class ArtistService {
     public url: string;
 
-    constructor(private _http: Http){
+    constructor(private _http: HttpClient) {
         this.url = GLOBAL.url;
     }
 
-    addArtist(token, artist: Artist){
+    addArtist(token, artist: Artist): Observable<any> {
         let params = JSON.stringify(artist);
-        let headers = new Headers({
+        let headers = new HttpHeaders({
             'Content-Type':'application/json',
             'Authorization':token
         });
         
-        return this._http.post(this.url + 'artist', params, {headers: headers})
-                .map(res => res.json());
+        return this._http.post(this.url + 'artist', params, {headers: headers});
     }
 
-    editArtist(token, id: string, artist: Artist){
+    editArtist(token, id: string, artist: Artist): Observable<any> {
         let params = JSON.stringify(artist);
-        let headers = new Headers({
+        let headers = new HttpHeaders({
             'Content-Type':'application/json',
             'Authorization':token
         });
         
-        return this._http.put(this.url + 'artist/'+id, params, {headers: headers})
-                .map(res => res.json());
+        return this._http.put(this.url + 'artist/'+id, params, {headers: headers});
     }
 
-    deleteArtist(token, id){
-        let headers = new Headers({
-            'Content-Type':'application/json',
-            'Authorization':token
-        });
-
-        let options = new RequestOptions({headers: headers});
-        return this._http.delete(this.url + 'artist/' + id, options)
-                        .map(res => res.json());
+    deleteArtist(token, id): Observable<any> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type': 'application/json',
+              'Authorization': token
+            })
+        };
+        return this._http.delete(this.url + 'artist/' + id, httpOptions);
     }
 
-    getArtists(token, page){
-        let headers = new Headers({
-            'Content-Type':'application/json',
-            'Authorization':token
-        });
-
-        let options = new RequestOptions({headers: headers});
-        return this._http.get(this.url + 'artists/' + page, options)
-                        .map(res => res.json());
+    getArtists(token, page): Observable<any> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type':  'application/json',
+              'Authorization': token
+            })
+        };
+        return this._http.get(this.url + 'artists/' + page, httpOptions);
     }
 
-    getArtist(token, id){
-        let headers = new Headers({
-            'Content-Type':'application/json',
-            'Authorization':token
-        });
+    getArtist(token, id) : Observable<any> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type':  'application/json',
+              'Authorization': token
+            })
+        };
 
-        let options = new RequestOptions({headers: headers});
-        return this._http.get(this.url + 'artist/' + id, options)
-                        .map(res => res.json());
+        return this._http.get(this.url + 'artist/' + id, httpOptions);
     }
 }

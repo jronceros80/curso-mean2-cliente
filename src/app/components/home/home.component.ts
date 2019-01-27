@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
     selector: 'home',
     templateUrl: 'home.component.html'
   })
-  export class HomeComponent implements OnInit{
+  export class HomeComponent implements OnInit {
 
     public titulo: string;
 
-    constructor(
-        private _route: ActivatedRoute,
-        private _router: Router
-      ){
+    constructor(){
         this.titulo='Home';
       }
 

@@ -21,87 +21,88 @@ import { GLOBAL } from '../../services/global';
     public url: string;
     public alertMessage: string;
     public is_edit;
+    public fileToUpload: Array<File>;
+
     constructor(
         private _route: ActivatedRoute,
         private _router: Router,
         private _userService: UserService,
         private _artistService: ArtistService,
         private _uploadService: UploadService
-      ){
-        this.titulo='Editar artista';
+      ) {
+        this.titulo = 'Editar artista';
         this.identity = this._userService.getIdentity();
-        this.token = this._userService.getToken();  
+        this.token = this._userService.getToken();
         this.url = GLOBAL.url;
-        this.artist = new Artist('','','');
+        this.artist = new Artist('', '', '');
         this.is_edit = true;
       }
 
-    ngOnInit(){
+    ngOnInit() {
         console.log('artist-add cargado');
 
-        //Lamar almetodo del api para sacar un artista en base a su getArtist
+        // Llamar almetodo del api para sacar un artista en base a su getArtist
         this.getArtist();
       }
 
-    getArtist(){
-        this._route.params.forEach((params: Params) =>{
-            let id = params['id'];
+    getArtist() {
+        this._route.params.forEach((params: Params) => {
+            const id = params['id'];
 
             this._artistService.getArtist(this.token, id).subscribe(
-                response =>{
-                    if(!response.artist){
+                response => {
+                    if (!response) {
                         this._router.navigate(['/']);
-                    }else{
-                        this.artist = response.artist;
+                    }else {
+                        this.artist = response;
                     }
             },
-            error =>{
-                var errorMessage = <any>error;
-                if(errorMessage != null){
-                    var body = JSON.parse(error._body);
+            error => {
+                const errorMessage = <any>error;
+                if (errorMessage != null) {
+                    const body = JSON.parse(error._body);
                 }
             });
         });
     }
 
-    public fileToUpload: Array<File>;
-    fileChangeEvent(fileInput: any){
+    fileChangeEvent(fileInput: any) {
         this.fileToUpload = <Array<File>>fileInput.target.files;
     }
 
-    onSubmit(){
+    onSubmit() {
 
         this._route.params.forEach((params: Params) =>{
-            let id = params['id'];
-            
+            const id = params['id'];
+
             this._artistService.editArtist(this.token, id, this.artist).subscribe(
-                response =>{
-                        if(!response.artist){
+                response => {
+                        if (!response.artist) {
                             this.alertMessage = 'error';
-                        }else{
+                        }else {
                             this.alertMessage = 'El artista se actualizado correctamente';
 
-                            //Subida de la imagen
-                            this._uploadService.makeFileRequest(this.url+ 'upload-image-artist/'+ id, [], this.fileToUpload, this.token, 'image')
+                            // Subida de la imagen
+                            this._uploadService.makeFileRequest(
+                                this.url + 'upload-image-artist/' + id, [], this.fileToUpload, this.token, 'image')
                                 .then(
                                     (result: any) => {
-                                        this._router.navigate(['/artistas', 1])
+                                        this._router.navigate(['/artistas', 1]);
                                     },
-                                    (error) =>{
+                                    (error) => {
                                         console.log(error);
                                     }
                                 );
                             }
                 },
-                error =>{
-                    var errorMessage = <any>error;
-                    if(errorMessage != null){
-                        var body = JSON.parse(error._body);
+                error => {
+                    const errorMessage = <any>error;
+                    if (errorMessage != null) {
+                        const body = JSON.parse(error._body);
                         this.alertMessage = body.message;
                     }
                 }
             );
-           
         });
       }
   }
